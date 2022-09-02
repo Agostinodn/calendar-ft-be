@@ -35,7 +35,7 @@ router.get("/", checkAuth, async (req, res) => {
 // });
 
 // POST
-router.post("/", checkAuth, async (req, res) => {
+router.post("/", async (req, res) => {
   const userUid = req.payload.user.uid;
   const { date, day, month, year, mode, note } = req.body;
 
