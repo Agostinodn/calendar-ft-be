@@ -10,7 +10,7 @@ const router = express.Router();
 const { checkAuth } = require("../middleware/auth");
 
 // GET ALL USERS
-router.get("/user", async (req, res) => {
+router.get("/user", checkAuth, async (req, res) => {
   try {
     await global.users
       .find({})
@@ -95,7 +95,7 @@ router.post("/login", async (req, res) => {
 });
 
 // DELETE
-router.delete("/", async (req, res) => {
+router.delete("/", checkAuth, async (req, res) => {
   try {
     await global.users
       .remove()

@@ -122,7 +122,7 @@ router.post("/", checkAuth, async (req, res) => {
 // });
 
 // DELETE
-router.delete("/", async (req, res) => {
+router.delete("/", checkAuth, async (req, res) => {
   try {
     await global.anagrafica
       .deleteMany()
