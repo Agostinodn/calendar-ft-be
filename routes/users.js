@@ -30,8 +30,9 @@ router.get("/user", checkAuth, async (req, res) => {
 // POST REGISTER
 router.post("/register", checkAuth, async (req, res) => {
   const { username, surname, birth, cf, cellulare, indirizzo, password } =
-    req.body;
-  let email = req.body.email;
+    req.payload;
+  let email = req.payload.email;
+  console.log("sto qui");
   if (email) email.toLowerCase();
 
   if (!email || !password)
