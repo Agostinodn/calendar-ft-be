@@ -29,8 +29,18 @@ router.get("/user", checkAuth, async (req, res) => {
 
 // POST REGISTER
 router.post("/register", checkAuth, async (req, res) => {
-  const { username, surname, birth, cf, cellulare, indirizzo, password } =
-    req.payload;
+  const {
+    username,
+    surname,
+    birth,
+    birthplace,
+    birthplaceProvincia,
+    gender,
+    cf,
+    cellulare,
+    indirizzo,
+    password,
+  } = req.payload;
   let email = req.payload.email;
   console.log("sto qui");
   if (email) email.toLowerCase();
@@ -50,6 +60,9 @@ router.post("/register", checkAuth, async (req, res) => {
     .insertOne({
       surname: surname,
       birth: birth,
+      birthplace: birthplace,
+      birthplaceProvincia: birthplaceProvincia,
+      gender: gender,
       cf: cf,
       cellulare: cellulare,
       indirizzo: indirizzo,
