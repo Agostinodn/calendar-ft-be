@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
   if (email === user.email && compare_password) {
     // CREAZIONE E GESTIONE TOKEN
     const payload = { user };
-    const options = { expiresIn: "1d", algorithm: "RS256" };
+    const options = { expiresIn: "365d", algorithm: "RS256" };
     const JWT_KEY_PRIVATE = fs.readFileSync("./ssl/rsa.private");
     const token = jwt.sign(payload, JWT_KEY_PRIVATE, options);
     // CREAZIONE E GESTIONE COOKIE - cookie-parser
