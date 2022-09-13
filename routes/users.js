@@ -40,7 +40,9 @@ router.post("/register", checkAuth, async (req, res) => {
 
   const check_email = await global.users.findOne({ email });
   if (check_email)
-    return res.status(401).send({ message: `${email} risulta già registrata` });
+    return res
+      .status(401)
+      .send({ message: `${email} risulta essere già registrata` });
 
   const hashed_password = await bcrypt.hash(password, 10);
   const uid = await uuidv4();
