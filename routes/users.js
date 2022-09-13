@@ -40,13 +40,13 @@ router.post("/register", checkAuth, async (req, res) => {
     cellulare,
     indirizzo,
     password,
-  } = req.payload;
-  let email = req.payload.email;
-  console.log("sto qui");
+  } = req.body;
+  let email = req.body.email;
+
   if (email) email.toLowerCase();
 
   if (!email || !password)
-    return res.status(400).send({ message: "Email o password non presenti" });
+    return res.status(400).send({ message: "Email o password mancanti" });
 
   const check_email = await global.users.findOne({ email });
   if (check_email)
@@ -66,8 +66,8 @@ router.post("/register", checkAuth, async (req, res) => {
       cf: cf,
       cellulare: cellulare,
       indirizzo: indirizzo,
-      username: username,
-      email: email,
+      username,
+      email,
       password: hashed_password,
       uid: uid,
       role: "standard",
