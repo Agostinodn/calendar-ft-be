@@ -22,17 +22,21 @@ router.get("/", checkAuth, async (req, res) => {
   }
 });
 
-// router.get("/:id", checkAuth,async (req, res) => {
-//   const { id } = req.params;
+router.get("/:id", checkAuth, async (req, res) => {
+  const { id } = +req.params;
 
-//   try {
-//     await global.anagrafica
-//       .findOne({ _id: ObjectID(id) })
-//       .then((response) => res.json(response));
-//   } catch (error) {
-//     res.json(error.message);
-//   }
-// });
+  try {
+    await global.anagrafica.findOne({ _id: ObjectID(id) }).then((response) => {
+      res.json({
+        message: "Richiesta elaborata correttamente",
+        type: "success",
+        response,
+      });
+    });
+  } catch (error) {
+    res.json(error.message);
+  }
+});
 
 // POST
 router.post("/", checkAuth, async (req, res) => {
@@ -47,8 +51,15 @@ router.post("/", checkAuth, async (req, res) => {
       data: { $elemMatch: { date: date } },
     });
 
-    // SE IL GIORNO INDICATO è MINORE DEL GIORNO CORRENTE IMPEDISCI OPERAZIONE (SE IL ROLE è STANDARD)
     // SE L'OPERAZIONE VIENE ESEGUITA DA UN ADMIN ESEGUI L'OPERAZIONE (SE IL ROLE è ADMIN)
+
+    if (new Date(date) < new Date()) {
+      return res.json({
+        message:
+          "Puoi modificare solo i giorni della settimana corrente e future  ",
+        type: "error",
+      });
+    }
 
     if (check_user_data) {
       const temp_data = [...check_user_data.data];
