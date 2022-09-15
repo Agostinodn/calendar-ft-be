@@ -56,7 +56,7 @@ router.post("/", checkAuth, async (req, res) => {
     if (new Date(date) < new Date()) {
       return res.json({
         message:
-          "Puoi modificare solo i giorni della settimana corrente e future  ",
+          "Puoi modificare solo i giorni della settimana corrente oppure settimane future  ",
         type: "error",
       });
     }
