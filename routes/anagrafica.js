@@ -51,15 +51,14 @@ router.post("/", checkAuth, async (req, res) => {
       data: { $elemMatch: { date: date } },
     });
 
-    // SE L'OPERAZIONE VIENE ESEGUITA DA UN ADMIN ESEGUI L'OPERAZIONE (SE IL ROLE è ADMIN)
-
-    if (new Date(date) < new Date()) {
-      return res.json({
-        message:
-          "Puoi modificare solo i giorni della settimana corrente oppure settimane future  ",
-        type: "error",
-      });
-    }
+    // SE L'OPERAZIONE VIENE ESEGUITA DA UN ADMIN ESEGUI L'OPERAZIONE (ROLE è ADMIN)
+    // if (new Date(date) < new Date()) {
+    //   return res.json({
+    //     message:
+    //       "Puoi modificare solo i giorni della settimana corrente oppure settimane future  ",
+    //     type: "error",
+    //   });
+    // }
 
     if (check_user_data) {
       const temp_data = [...check_user_data.data];
